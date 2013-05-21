@@ -106,6 +106,10 @@ module Devise
         @login = params[:login]
         @password = params[:password]
         @new_password = params[:new_password]
+        ldap_config['bases'].each do |base|
+          @ldap.base = base
+          return if valid_login?
+        end
       end
 
       def delete_param(param)
